@@ -26,12 +26,25 @@
                             {{ __('Customers') }}
                         </x-nav-link>
                     </div>
+                    
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
+                        {{ __('Loans') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
-                            {{ __('Loans') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('loantransactions.index')" :active="request()->routeIs('loantransactions.index')">
+                        {{ __('Loan Transactions') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
+                        {{ __('Inventory') }}
+                    </x-nav-link>
+                </div>
+>>>>>>> 3e1a59157bae73c6db8123d1b37adffa4d2921f0
 
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('loantransactions.index')" :active="request()->routeIs('loantransactions.index')">

@@ -1,25 +1,30 @@
 <?php
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\LoanController;
-use App\Http\Controllers\LoanTransactionController;
-use App\Http\Middleware\IsAdmin; // <--- Add this line!
-use Illuminate\Support\Facades\Route;
 
-// 1. PUBLIC ROUTES (Anyone can see)
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. STANDARD AUTH ROUTES (All logged-in users, both Customer and Admin)
+Route::resource('customers', CustomerController::class);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/categories', function () {
+    return view('Categories.index');
+})->middleware(['auth', 'verified'])->name('categories');
+
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/inventory/pdf', [InventoryController::class, 'exportPdf'])->name('inventory.pdf');
+    Route::resource('inventory', InventoryController::class);
 });
 
-// 3. PROFILE ROUTES (All logged-in users can edit their own profile)
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
