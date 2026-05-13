@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Loan extends Model
 {
-    protected $fillable = ['name', 'address', 'gender', 'dob'];
-    
+    protected $fillable = ['description', 'amount', 'term', 'interest', 'dategranted'];
+
     public function loanTransactions()
     {
         return $this->hasMany(LoanTransaction::class);
