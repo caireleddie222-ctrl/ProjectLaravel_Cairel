@@ -3,6 +3,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\LoanTransactionController;
+use App\Http\Middleware\IsAdmin;
 
 
 Route::get('/', function () {

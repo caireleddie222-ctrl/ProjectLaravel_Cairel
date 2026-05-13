@@ -28,7 +28,10 @@ class InventorySeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            Inventory::create($item);
+            Inventory::firstOrCreate(
+                ['sku' => $item['sku']],
+                $item
+            );
         }
     }
 }

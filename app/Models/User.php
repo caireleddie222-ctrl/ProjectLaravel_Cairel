@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'avatarphp artisan make:Controller ProfileController',
+        'avatar',
     ];
 
     /**
