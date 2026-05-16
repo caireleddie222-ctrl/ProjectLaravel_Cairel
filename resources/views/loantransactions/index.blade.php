@@ -24,10 +24,12 @@
                     </form>
 
                     <div class="flex space-x-2">
-                        <a href="{{ route('loantransactions.pdf') }}"
-                           class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Export PDF</a>
-                        <a href="{{ route('loantransactions.create') }}"
-                           class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">+ Add Transaction</a>
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('loantransactions.pdf') }}"
+                               class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Export PDF</a>
+                            <a href="{{ route('loantransactions.create') }}"
+                               class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">+ Add Transaction</a>
+                        @endif
                     </div>
                 </div>
 

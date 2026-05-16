@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class InventoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(IsAdmin::class)->except(['index', 'show']);
+    }
+
     // 1. Index with Search & Pagination
     public function index(Request $request)
     {

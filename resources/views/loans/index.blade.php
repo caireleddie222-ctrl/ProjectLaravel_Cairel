@@ -14,10 +14,12 @@
                         Loan List
                     </h3>
 
-                    <a href="{{ route('loans.create') }}"
-                       class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                        + Add Loan
-                    </a>
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('loans.create') }}"
+                           class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            + Add Loan
+                        </a>
+                    @endif
                 </div>
 
                 <div class="overflow-x-auto">
@@ -30,7 +32,9 @@
                                 <th class="px-4 py-2">Term</th>
                                 <th class="px-4 py-2">Interest (%)</th>
                                 <th class="px-4 py-2">Date Granted</th>
-                                <th class="px-4 py-2 text-center">Actions</th>
+                                @if(auth()->user()->isAdmin())
+                                    <th class="px-4 py-2 text-center">Actions</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -43,23 +47,25 @@
                                     <td class="px-4 py-2">{{ $loan->interest }}%</td>
                                     <td class="px-4 py-2">{{ $loan->dategranted }}</td>
 
-                                    <td class="px-4 py-2 text-center space-x-2">
-                                        <a href="{{ route('loans.edit', $loan->id) }}"
-                                           class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
-                                            Edit
-                                        </a>
+                                    @if(auth()->user()->isAdmin())
+                                        <td class="px-4 py-2 text-center space-x-2">
+                                            <a href="{{ route('loans.edit', $loan->id) }}"
+                                               class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">
+                                                Edit
+                                            </a>
 
-                                        <form action="{{ route('loans.destroy', $loan->id) }}"
-                                              method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    onclick="return confirm('Delete this loan?')"
-                                                    class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
+                                            <form action="{{ route('loans.destroy', $loan->id) }}"
+                                                  method="POST" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        onclick="return confirm('Delete this loan?')"
+                                                        class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>

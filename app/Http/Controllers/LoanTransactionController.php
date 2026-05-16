@@ -1,14 +1,20 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\IsAdmin;
+use App\Models\Loan;
 use App\Models\LoanTransaction;
 use App\Models\Customer;
-use App\Models\Loan;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf; // Ensure your PDF package is installed
+use Illuminate\Http\Request;
 
 class LoanTransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(IsAdmin::class)->except(['index']);
+    }
+
     public function index(Request $request)
     {
         $search = $request->search;

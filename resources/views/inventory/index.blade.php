@@ -24,10 +24,12 @@
                     </form>
 
                     <div class="flex space-x-2">
-                        <a href="{{ route('inventory.pdf', ['search' => request('search')]) }}"
-                           class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Export PDF</a>
-                        <a href="{{ route('inventory.create') }}"
-                           class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">+ Add Item</a>
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('inventory.pdf', ['search' => request('search')]) }}"
+                               class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Export PDF</a>
+                            <a href="{{ route('inventory.create') }}"
+                               class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">+ Add Item</a>
+                        @endif
                     </div>
                 </div>
 
@@ -39,7 +41,9 @@
                                 <th class="px-4 py-2">Item Name</th>
                                 <th class="px-4 py-2">Quantity</th>
                                 <th class="px-4 py-2">Price</th>
-                                <th class="px-4 py-2 text-center">Actions</th>
+                                @if(auth()->user()->isAdmin())
+                                    <th class="px-4 py-2 text-center">Actions</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -49,14 +53,16 @@
                                     <td class="px-4 py-2">{{ $item->name }}</td>
                                     <td class="px-4 py-2">{{ $item->quantity }}</td>
                                     <td class="px-4 py-2">₱{{ number_format($item->price, 2) }}</td>
-                                    <td class="px-4 py-2 text-center space-x-2">
-                                        <a href="{{ route('inventory.edit', $item->id) }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">Edit</a>
-                                        <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" onclick="return confirm('Delete this item?')" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Delete</button>
-                                        </form>
-                                    </td>
+                                    @if(auth()->user()->isAdmin())
+                                        <td class="px-4 py-2 text-center space-x-2">
+                                            <a href="{{ route('inventory.edit', $item->id) }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 text-sm">Edit</a>
+                                            <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Delete this item?')" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>

@@ -28,17 +28,20 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        // Fill basic fields (name, email, etc.)
-        $user->fill($request->validated());
+        $data = $request->validated();
+
+        // Preserve the current avatar unless a new file is uploaded.
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        } else {
+            unset($data['avatar']);
+        }
+
+        $user->fill($data);
 
         // If email changed, reset verification
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
-        }
-
-        if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $avatarPath;
         }
 
         $user->save();

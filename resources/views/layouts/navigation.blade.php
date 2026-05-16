@@ -14,18 +14,11 @@
                     </x-nav-link>
                 </div>
 
-                @if (Auth::user()->role === 'admin')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
-                            {{ __('Categories') }}
-                        </x-nav-link>
-                    </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
-                            {{ __('Customers') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
+                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
@@ -39,9 +32,16 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
+                        {{ __('Inventory') }}
+                    </x-nav-link>
+                </div>
+
+                @if (Auth::user()->role === 'admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
-                            {{ __('Inventory') }}
+                        <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
+                            {{ __('Customers') }}
                         </x-nav-link>
                     </div>
                 @endif
@@ -105,21 +105,21 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                {{ __('Categories') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
+                {{ __('Loans') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('loantransactions.index')" :active="request()->routeIs('loantransactions.index')">
+                {{ __('Loan Transactions') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
+                {{ __('Inventory') }}
+            </x-responsive-nav-link>
             @if (Auth::user()->role === 'admin')
-                <x-responsive-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
-                    {{ __('Categories') }}
-                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
                     {{ __('Customers') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('loans.index')" :active="request()->routeIs('loans.index')">
-                    {{ __('Loans') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('loantransactions.index')" :active="request()->routeIs('loantransactions.index')">
-                    {{ __('Loan Transactions') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory.index')">
-                    {{ __('Inventory') }}
                 </x-responsive-nav-link>
             @endif
         </div>

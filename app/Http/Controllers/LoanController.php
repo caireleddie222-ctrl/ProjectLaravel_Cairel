@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\IsAdmin;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(IsAdmin::class)->except(['index', 'show']);
+    }
+
     public function index()
     {
         // Fetch all loans and pass them to the index view
